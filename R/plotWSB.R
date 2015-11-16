@@ -14,7 +14,6 @@
 #' png("test.png")
 #' plotWSB(sites)
 #' points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=1)
-#' box()
 #' dev.off()
 #' 
 #' plotWSB(sites[4], mapRange=c(-80,-74, 38, 46))
@@ -28,6 +27,11 @@ plotWSB <- function(sites,col="#A8A8A850", mapRange = NA){
   basins <- spTransform(basins,CRS(proj4string(shape_polibounds)))
   if(all(is.na(mapRange))){
     plot(basins, col=col)
+    mapRange <- par()$usr
+    shape_hydropoly <- clipShape(shape_hydropoly, mapRange)
+    shape_polibounds <- clipShape(shape_polibounds, mapRange)
+    shape_hydroline <- clipShape(shape_hydroline, mapRange)
+    
     plot(shape_hydropoly,col="lightskyblue2",add=TRUE)
     lines(shape_hydroline,col="lightskyblue2")
     plot(shape_polibounds,add=TRUE)    
@@ -36,8 +40,9 @@ plotWSB <- function(sites,col="#A8A8A850", mapRange = NA){
     shape_hydropoly <- clipShape(shape_hydropoly, mapRange)
     shape_polibounds <- clipShape(shape_polibounds, mapRange)
     shape_hydroline <- clipShape(shape_hydroline, mapRange)
+    basins <- crop(basins, extent(mapRange)) #should figure this out...clipping a SpatialPolygonsDataFrame
     
-    plot(shape_hydropoly,col="lightskyblue2", xlim=mapRange[1:2],ylim=mapRange[3:4])
+    plot(shape_hydropoly,col="lightskyblue2")
     lines(shape_hydroline,col="lightskyblue2")
     plot(shape_polibounds,add=TRUE)
     plot(basins, col=col,add=TRUE)

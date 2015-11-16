@@ -23,7 +23,6 @@ siteInfo <- readRDS(file.path(path,"siteInfo.rds"))
 png("test.png")
 plotWSB(sites)
 points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=1)
-box()
 dev.off()
 
 plotWSB(sites[4], mapRange=c(-80,-74, 38, 46))

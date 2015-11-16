@@ -8,7 +8,7 @@ library(knitr)
 ## ----message=FALSE----------------------------------------
 library(hydroMap)
 library(dataRetrieval)
-sites <- c("01491000", "01573000", "01576000","01137500","06485500")
+sites <- c("01491000", "01573000", "01576000","01137500")
 
 siteInfo <- readNWISsite(sites)
 plotWSB(sites)
