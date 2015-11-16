@@ -8,7 +8,7 @@
 #' @import rgdal 
 #' @export
 #' @examples
-#' sites <- c("01491000", "01573000", "01576000","01137500","06485500")
+#' sites <- c("01137500","01491000", "01573000", "01576000","06485500")
 #' path <- system.file("extdata", package="hydroMap")
 #' siteInfo <- readRDS(file.path(path,"siteInfo.rds"))
 #' png("test.png")
@@ -17,8 +17,8 @@
 #' box()
 #' dev.off()
 #' 
-#' plotWSB(sites[2], mapRange=c(-80,-74, 38, 46))
-#' points(siteInfo$dec_long_va[2], siteInfo$dec_lat_va[2], pch=20, col="red", cex=1)
+#' plotWSB(sites[4], mapRange=c(-80,-74, 38, 46))
+#' points(siteInfo$dec_long_va[4], siteInfo$dec_lat_va[4], pch=20, col="red", cex=1)
 plotWSB <- function(sites,col="#A8A8A850", mapRange = NA){
 
   shape_hydropoly <- shape_hydropoly
