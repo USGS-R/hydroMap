@@ -4,11 +4,11 @@
 #' @param siteInfo data frame returned from dataRetrieval
 #' @param rangeMap numeric vector of: min longitude, max longitude, min latitude, max latitude
 #' @return list of politicalBoundary, rivers, and lakes shapefiles, and a vector of lat/lon limits
-#' @importFrom rgdal readOGR
 #' @importFrom httr GET
 #' @importFrom httr write_disk
 #' @importFrom utils URLencode
-#' @importFrom sp spTransform
+#' @import sp 
+#' @import rgdal 
 #' @export
 #' @examples
 #' sites <- c("01491000", "01573000", "01576000","01137500","06485500")

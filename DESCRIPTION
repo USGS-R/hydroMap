@@ -19,6 +19,9 @@ Imports:
     rgdal,
     utils,
     sp
+Suggests:
+    dataRetrieval,
+    rmarkdown
 LazyLoad: yes
 LazyData: yes
 Suggests:

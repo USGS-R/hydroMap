@@ -4,7 +4,7 @@
 \alias{plotWSB}
 \title{Basic plot of WSB based on huc}
 \usage{
-plotWSB(sites)
+plotWSB(sites, col = "#A8A8A850")
 }
 \arguments{
 \item{siteInfo}{data frame returned from dataRetrieval}
@@ -19,9 +19,11 @@ Basic plot
 }
 \examples{
 sites <- c("01491000", "01573000", "01576000","01137500","06485500")
+library(dataRetrieval)
+siteInfo <- readNWISsite(sites)
 png("test.png")
 plotWSB(sites)
-points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
+points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=1)
 box()
 dev.off()
 }
