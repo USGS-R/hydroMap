@@ -7,20 +7,17 @@
 plotWSB(sites, col = "#A8A8A850")
 }
 \arguments{
-\item{siteInfo}{data frame returned from dataRetrieval}
+\item{sites}{character vector of site ids}
 
-\item{rangeMap}{numeric vector of: min longitude, max longitude, min latitude, max latitude}
-}
-\value{
-list of politicalBoundary, rivers, and lakes shapefiles, and a vector of lat/lon limits
+\item{col}{for basin fill}
 }
 \description{
 Basic plot
 }
 \examples{
 sites <- c("01491000", "01573000", "01576000","01137500","06485500")
-library(dataRetrieval)
-siteInfo <- readNWISsite(sites)
+path <- system.file("extdata", package="hydroMap")
+siteInfo <- readRDS(file.path(path,"siteInfo.rds"))
 png("test.png")
 plotWSB(sites)
 points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=1)

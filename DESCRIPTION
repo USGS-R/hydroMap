@@ -20,8 +20,10 @@ Imports:
     utils,
     sp
 Suggests:
+    rmarkdown,
     dataRetrieval,
-    rmarkdown
+    leaflet,
+    magrittr
 LazyLoad: yes
 LazyData: yes
 Suggests:

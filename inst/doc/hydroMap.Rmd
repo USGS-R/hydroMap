@@ -1,0 +1,62 @@
+---
+title: "Hydro Map"
+author: "Laura A. De Cicco"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  rmarkdown::html_vignette:
+    fig_height: 7
+    fig_width: 7
+    toc: yes
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Hydro Maps}
+  \usepackage[utf8]{inputenc}
+---
+
+
+```{r setup, include=FALSE, message=FALSE}
+library(rmarkdown)
+options(continue=" ")
+options(width=60)
+library(knitr)
+
+```
+
+
+# Sample workflow:
+
+
+```{r message=FALSE} 
+library(hydroMap)
+library(dataRetrieval)
+sites <- c("01491000", "01573000", "01576000","01137500","06485500")
+
+siteInfo <- readNWISsite(sites)
+plotWSB(sites)
+points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=1)
+box()
+
+```
+
+# Interactive workflow:
+```{r message=FALSE} 
+library(leaflet)
+basins <- getBasin(sites)
+leaflet() %>% 
+  addProviderTiles("CartoDB.Positron") %>% 
+  setView(-93.65, 42.0285, zoom = 4) %>%
+  addPolygons(data=basins, weight=2) %>%
+  addCircleMarkers(siteInfo$dec_long_va,siteInfo$dec_lat_va,
+                   color = "red",
+                   radius=3,
+                   stroke=FALSE,
+                   fillOpacity = 0.8, opacity = 0.8,
+                   popup=siteInfo$station_nm)
+
+```
+
+
+# Disclaimer
+Software created by USGS employees along with contractors and grantees (unless specific stipulations are made in a contract or grant award) are to be released as Public Domain and free of copyright or license. Contributions of software components such as specific algorithms to existing software licensed through a third party are encouraged, but those contributions should be annotated as freely available in the Public Domain wherever possible. If USGS software uses existing licensed components, those licenses must be adhered to and redistributed.
+
+Although this software has been used by the U.S. Geological Survey (USGS), no warranty, expressed or implied, is made by the USGS or the U.S. Government as to accuracy and functionality, nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
