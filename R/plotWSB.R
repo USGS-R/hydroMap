@@ -5,7 +5,8 @@
 #' @param col for basin fill
 #' @param mapRange vector of map limits (min long, max long, min lat, max lat)
 #' @import sp 
-#' @import rgdal 
+#' @import rgdal
+#' @importFrom raster extent
 #' @export
 #' @examples
 #' sites <- c("01137500","01491000", "01573000", "01576000","06485500")
@@ -32,12 +33,43 @@ plotWSB <- function(sites,col="#A8A8A850", mapRange = NA){
     lines(shape_hydroline,col="lightskyblue2")
     plot(shape_polibounds,add=TRUE)    
   } else {
+
+    shape_hydropoly <- clipShape(shape_hydropoly, mapRange)
+    shape_polibounds <- clipShape(shape_polibounds, mapRange)
+    shape_hydroline <- clipShape(shape_hydroline, mapRange)
+    
     plot(shape_hydropoly,col="lightskyblue2", xlim=mapRange[1:2],ylim=mapRange[3:4])
     lines(shape_hydroline,col="lightskyblue2")
     plot(shape_polibounds,add=TRUE)
     plot(basins, col=col,add=TRUE)
   }
  
+}
+
+#' Basic plot of WSB based on huc
+#' 
+#' Basic plot
+#' @param shapefile
+#' @param mapRange vector of map limits (min long, max long, min lat, max lat)
+#' @import sp 
+#' @import rgdal
+#' @importFrom rgeos gIntersection
+#' @importFrom raster extent
+#' @export
+#' @examples
+#' mapRange=c(-80,-74, 38, 46)
+#' shape_hydropoly <- shape_hydropoly
+#' plot(shape_hydropoly)
+#' clippedShape <- clipShape(shape_hydropoly, mapRange)
+#' plot(clippedShape)
+clipShape <- function(shapefile, mapRange){
+  ext <- extent(mapRange) 
+  clipe <- as(ext, "SpatialPolygons") 
+  
+  proj4string(clipe) <- CRS(proj4string(shapefile)) 
+  cropd <- SpatialPolygonsDataFrame(clipe, data.frame(x = 1), match.ID = FALSE) 
+  shapeClipped <- gIntersection(shapefile, cropd,byid=TRUE) 
+  return(shapeClipped)
 }
 
 #' Get shapefile basins

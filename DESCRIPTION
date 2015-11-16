@@ -18,6 +18,7 @@ Imports:
     httr,
     rgdal,
     utils,
+    rgeos,
     sp
 Suggests:
     rmarkdown,
