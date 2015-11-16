@@ -17,12 +17,12 @@ Depends:
 Imports:
     httr,
     rgdal,
-    rgeos,
-    dataRetrieval
+    utils,
+    sp
 LazyLoad: yes
 LazyData: yes
 Suggests:
     knitr
 VignetteBuilder: knitr
 BuildVignettes: true
-RoxygenNote: 5.0.0
+RoxygenNote: 5.0.1
