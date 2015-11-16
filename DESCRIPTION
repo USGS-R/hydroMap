@@ -19,7 +19,8 @@ Imports:
     rgdal,
     utils,
     rgeos,
-    sp
+    sp,
+    raster
 Suggests:
     rmarkdown,
     dataRetrieval,

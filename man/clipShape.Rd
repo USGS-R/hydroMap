@@ -7,6 +7,8 @@
 clipShape(shapefile, mapRange)
 }
 \arguments{
+\item{shapefile}{shapefile to clip}
+
 \item{mapRange}{vector of map limits (min long, max long, min lat, max lat)}
 }
 \description{
@@ -15,8 +17,6 @@ Basic plot
 \examples{
 mapRange=c(-80,-74, 38, 46)
 shape_hydropoly <- shape_hydropoly
-plot(shape_hydropoly)
 clippedShape <- clipShape(shape_hydropoly, mapRange)
-plot(clippedShape)
 }
 

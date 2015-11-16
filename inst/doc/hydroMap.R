@@ -1,4 +1,4 @@
-## ----setup, include=FALSE, message=FALSE------------------
+## ----include = FALSE, message=FALSE-----------------------
 library(rmarkdown)
 options(continue=" ")
 options(width=60)

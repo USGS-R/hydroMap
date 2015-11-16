@@ -6,7 +6,6 @@
 #' @param mapRange vector of map limits (min long, max long, min lat, max lat)
 #' @import sp 
 #' @import rgdal
-#' @importFrom raster extent
 #' @export
 #' @examples
 #' sites <- c("01137500","01491000", "01573000", "01576000","06485500")
@@ -49,19 +48,17 @@ plotWSB <- function(sites,col="#A8A8A850", mapRange = NA){
 #' Basic plot of WSB based on huc
 #' 
 #' Basic plot
-#' @param shapefile
+#' @param shapefile shapefile to clip
 #' @param mapRange vector of map limits (min long, max long, min lat, max lat)
 #' @import sp 
 #' @import rgdal
-#' @importFrom rgeos gIntersection
-#' @importFrom raster extent
+#' @import rgeos 
+#' @import raster
 #' @export
 #' @examples
 #' mapRange=c(-80,-74, 38, 46)
 #' shape_hydropoly <- shape_hydropoly
-#' plot(shape_hydropoly)
 #' clippedShape <- clipShape(shape_hydropoly, mapRange)
-#' plot(clippedShape)
 clipShape <- function(shapefile, mapRange){
   ext <- extent(mapRange) 
   clipe <- as(ext, "SpatialPolygons") 
