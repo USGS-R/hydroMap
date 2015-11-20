@@ -25,11 +25,10 @@ Suggests:
     rmarkdown,
     dataRetrieval,
     leaflet,
-    magrittr
+    magrittr,
+    knitr
 LazyLoad: yes
 LazyData: yes
-Suggests:
-    knitr
 VignetteBuilder: knitr
 BuildVignettes: true
 RoxygenNote: 5.0.1
