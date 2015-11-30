@@ -89,7 +89,7 @@ clipShape <- function(shapefile, mapRange){
 #' sites <- c("01491000", "01573000", "01576000","01137500","06485500")
 #' getBasin(sites)
 getBasin <- function(sites){
-  baseURL <- "http://cida-eros-wsdev.er.usgs.gov:8081/geoserver/NWC/ows?service=WFS&version=1.1.0&srsName=EPSG:4326&request=GetFeature&typeName=NWC:epa_basins"
+  baseURL <- "http://cida-test.er.usgs.gov/nwc/geoserver/NWC/ows?service=WFS&version=1.1.0&srsName=EPSG:4326&request=GetFeature&typeName=NWC:epa_basins"
   
   siteText <- ""
   for(i in sites){
