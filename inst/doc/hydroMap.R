@@ -11,7 +11,7 @@ library(dataRetrieval)
 sites <- c("01491000", "01573000", "01576000","01137500")
 
 siteInfo <- readNWISsite(sites)
-plotWSB(sites)
+plotWSB(sites, mapRange = c(-81,-73,38,44))
 points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=1)
 box()
 
