@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/USGS-R/hydroMaps.svg)](https://travis-ci.org/USGS-R/hydroMaps)
+
 Installation
 ============
 
@@ -21,7 +23,71 @@ install.packages("hydroMaps",
     repos = c("http://owi.usgs.gov/R", "http://cran.us.r-project.org"))
 ```
 
-[![Build Status](https://travis-ci.org/USGS-R/hydroMaps.svg)](https://travis-ci.org/USGS-R/hydroMaps)
+Sample Workflow
+===============
+
+``` r
+library(dataRetrieval)
+library(hydroMap)
+
+sites <- c("01491000", "01573000", "01576000")
+
+siteInfo <- readNWISsite(sites)
+# png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
+plotWSB(sites)
+```
+
+    ## OGR data source with driver: ESRI Shapefile 
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\RtmpCONae8", layer: "epa_basins"
+    ## with 3 features
+    ## It has 4 fields
+
+![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)
+
+``` r
+# dev.off()
+```
+
+Use base R graphics to add information:
+---------------------------------------
+
+``` r
+plotWSB(sites)
+```
+
+    ## OGR data source with driver: ESRI Shapefile 
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\RtmpCONae8", layer: "epa_basins"
+    ## with 3 features
+    ## It has 4 fields
+
+``` r
+points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=2)
+axis(2,las=1)
+axis(1,las=1)
+title(paste("Sites:",paste0(siteInfo$site_no,collapse = ",")))
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-4-1.png)
+
+Create Interactive Graphs using Leaflet:
+----------------------------------------
+
+``` r
+library(leaflet)
+basins <- getBasin(sites)
+leaflet() %>% 
+  addProviderTiles("CartoDB.Positron") %>% 
+  setView(-75.8, 40, zoom = 6) %>%
+  addPolygons(data=basins, weight=2) %>%
+  addCircleMarkers(siteInfo$dec_long_va,siteInfo$dec_lat_va,
+                   color = "red",
+                   radius=3,
+                   stroke=FALSE,
+                   fillOpacity = 0.8, opacity = 0.8,
+                   popup=siteInfo$station_nm)
+```
+
+Screen shot: ![](README_files/figure-markdown_github//leafletScreen.png)
 
 Contribute
 ==========
