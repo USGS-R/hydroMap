@@ -30,7 +30,7 @@ Sample Workflow
 library(dataRetrieval)
 library(hydroMap)
 
-sites <- c("01137500","01491000", "01573000", "01576000","06485500")
+sites <- c("01491000", "01573000", "01576000")
 
 siteInfo <- readNWISsite(sites)
 # png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
@@ -38,12 +38,12 @@ plotWSB(sites)
 ```
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\RtmpIhgwsK", layer: "epa_basins"
-    ## with 5 features
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\Rtmpie1hQ8", layer: "epa_basins"
+    ## with 3 features
     ## It has 4 fields
 
 ``` r
-points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
+points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=2)
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)

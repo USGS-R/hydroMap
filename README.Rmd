@@ -36,12 +36,12 @@ install.packages("hydroMaps",
 library(dataRetrieval)
 library(hydroMap)
 
-sites <- c("01137500","01491000", "01573000", "01576000","06485500")
+sites <- c("01491000", "01573000", "01576000")
 
 siteInfo <- readNWISsite(sites)
 # png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
 plotWSB(sites)
-points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
+points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=2)
 # dev.off()
 
 ```
