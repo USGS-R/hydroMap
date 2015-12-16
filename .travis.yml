@@ -1,8 +1,16 @@
 # Sample .travis.yml for R projects from https://github.com/craigcitro/r-travis
 
-language: r
-sudo: required
+language: c
+script: ./travis-tool.sh run_tests
 
+before_script:
+  - sudo apt-get update
+  - sudo apt-get install -y gdal-bin libgdal-dev libgdal1-dev netcdf-bin libproj-dev libgdal1h
+  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
+  - chmod 755 ./travis-tool.sh
+  - ./travis-tool.sh bootstrap
+  - ./travis-tool.sh install_deps
+  - ./travis-tool.sh install_r rgdal
 env:
    global:
      - R_LIBS="http://cran.rstudio.com"
@@ -11,19 +19,9 @@ env:
      - BOOTSTRAP_LATEX=""
      - NOT_CRAN="true"
 
-before_install:
-  - sudo apt-get update
-  - sudo apt-get install -y gdal-bin libgdal-dev libgdal1-dev netcdf-bin libproj-dev libgdal1h
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
-  - ./travis-tool.sh install_r rgdal
-
 after_script:
   - "./travis-tool.sh dump_logs"
 
-install:
-  - ./travis-tool.sh install_deps
 
 script: ./travis-tool.sh run_tests
 
