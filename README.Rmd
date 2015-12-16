@@ -41,11 +41,41 @@ sites <- c("01491000", "01573000", "01576000")
 siteInfo <- readNWISsite(sites)
 # png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
 plotWSB(sites)
-points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=2)
 # dev.off()
 
 ```
 
+
+## Use base R graphics to add information:
+```{r echo=TRUE, message=FALSE}
+
+plotWSB(sites)
+points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=2)
+axis(2,las=1)
+axis(1,las=1)
+title(paste("Sites:",paste0(siteInfo$site_no,collapse = ",")))
+
+```
+
+## Create Interactive Graphs using Leaflet:
+```{r message=FALSE, eval=FALSE} 
+library(leaflet)
+basins <- getBasin(sites)
+leaflet() %>% 
+  addProviderTiles("CartoDB.Positron") %>% 
+  setView(-75.8, 40, zoom = 6) %>%
+  addPolygons(data=basins, weight=2) %>%
+  addCircleMarkers(siteInfo$dec_long_va,siteInfo$dec_lat_va,
+                   color = "red",
+                   radius=3,
+                   stroke=FALSE,
+                   fillOpacity = 0.8, opacity = 0.8,
+                   popup=siteInfo$station_nm)
+
+```
+
+Screen shot:
+![](README_files/figure-markdown_github//leafletScreen.png)
 
 #Contribute
 
