@@ -32,7 +32,7 @@ install.packages("hydroMaps",
 
 
 # Sample Workflow
-```{r echo=TRUE}
+```{r echo=TRUE, message=FALSE}
 library(dataRetrieval)
 library(hydroMap)
 

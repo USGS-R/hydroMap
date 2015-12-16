@@ -29,11 +29,7 @@ Sample Workflow
 ``` r
 library(dataRetrieval)
 library(hydroMap)
-```
 
-    ## This information is preliminary or provisional and is subject to revision. It is being provided to meet the need for timely best science. The information has not received final approval by the U.S. Geological Survey (USGS) and is provided on the condition that neither the USGS nor the U.S. Government shall be held liable for any damages resulting from the authorized or unauthorized use of the information. Although this software program has been used by the USGS, no warranty, expressed or implied, is made by the USGS or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
-
-``` r
 sites <- c("01137500","01491000", "01573000", "01576000","06485500")
 
 siteInfo <- readNWISsite(sites)
@@ -42,7 +38,7 @@ plotWSB(sites)
 ```
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\RtmpchM1Bn", layer: "epa_basins"
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\RtmpIhgwsK", layer: "epa_basins"
     ## with 5 features
     ## It has 4 fields
 
