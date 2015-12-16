@@ -7,6 +7,8 @@ output:
     variant: markdown_github
 ---
 
+[![Build Status](https://travis-ci.org/USGS-R/hydroMaps.svg)](https://travis-ci.org/USGS-R/hydroMaps)  
+
 #Installation
 
 ##Windows
@@ -29,7 +31,20 @@ install.packages("hydroMaps",
 ```
 
 
-[![Build Status](https://travis-ci.org/USGS-R/hydroMaps.svg)](https://travis-ci.org/USGS-R/hydroMaps)  
+# Sample Workflow
+```{r echo=TRUE}
+library(dataRetrieval)
+library(hydroMap)
+
+sites <- c("01137500","01491000", "01573000", "01576000","06485500")
+
+siteInfo <- readNWISsite(sites)
+# png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
+plotWSB(sites)
+points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
+# dev.off()
+
+```
 
 
 #Contribute
