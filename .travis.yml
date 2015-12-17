@@ -5,8 +5,10 @@ script: ./travis-tool.sh run_tests
 
 before_script:
   - sudo apt-get update
-  - sudo apt-get install -y libgdal1-dev libproj-dev libgdal1h
-  - dpkg -l | grep gdal | cut -c-72
+  - sudo apt-get install -y libgdal-dev
+  - sudo apt-get install apt-file
+  - sudo apt-file update
+  - sudo apt-file search gdal-config
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
