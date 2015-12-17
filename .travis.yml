@@ -5,11 +5,10 @@ script: ./travis-tool.sh run_tests
 
 before_script:
   - sudo apt-get update
-  - sudo apt-get install -y gdal-bin libgdal-dev libgdal1-dev netcdf-bin libproj-dev libgdal1h
-  - dpkg -l | grep gdal | cut -c-72
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
+  - ./travis-tool.sh aptget_install gdal-bin libgdal1-dev libproj-dev
   - ./travis-tool.sh install_deps
   - ./travis-tool.sh install_r rgdal
 env:
