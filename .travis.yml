@@ -1,6 +1,8 @@
 # Sample .travis.yml for R projects from https://github.com/craigcitro/r-travis
 
 language: c
+sudo: required
+dist: trusty
 script: ./travis-tool.sh run_tests
 
 before_script:
