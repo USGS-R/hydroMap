@@ -7,7 +7,7 @@ Windows
 -------
 
 ``` r
-install.packages("hydroMaps", 
+install.packages("hydroMap", 
     repos = c("http://owi.usgs.gov/R", "http://cran.us.r-project.org"))
 ```
 
@@ -19,7 +19,7 @@ Mac and Unix
 <https://www.mapbox.com/tilemill/docs/guides/gdal/>
 
 ``` r
-install.packages("hydroMaps", 
+install.packages("hydroMap", 
     repos = c("http://owi.usgs.gov/R", "http://cran.us.r-project.org"))
 ```
 
@@ -38,11 +38,11 @@ plotWSB(sites)
 ```
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\RtmpCONae8", layer: "epa_basins"
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\Rtmpkhr5kz", layer: "epa_basins"
     ## with 3 features
     ## It has 4 fields
 
-![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)<!-- -->
 
 ``` r
 # dev.off()
@@ -56,7 +56,7 @@ plotWSB(sites)
 ```
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\RtmpCONae8", layer: "epa_basins"
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\Rtmpkhr5kz", layer: "epa_basins"
     ## with 3 features
     ## It has 4 fields
 
@@ -67,7 +67,7 @@ axis(1,las=1)
 title(paste("Sites:",paste0(siteInfo$site_no,collapse = ",")))
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-4-1.png)<!-- -->
 
 Create Interactive Graphs using Leaflet:
 ----------------------------------------
@@ -98,7 +98,7 @@ In order to contribute to this code, we recommend the following workflow:
 
 2.  clone the github repository to your computer:
 
-    $git clone [https://github.com/{username}/hydroMaps.git](https://github.com/{username}/hydroMaps.git)
+    $git clone <https://github.com/%7Busername%7D/hydroMaps.git>
 
 3.  modify code or add new functionality, save the code
 
