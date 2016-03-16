@@ -153,7 +153,7 @@ getBasin <- function(sites, filePath = NA){
 #' Range=c(-86.32679,-81.16322,39.61600,43.06262)
 #' flowLines <- getFlowLines(Range, 5)
 #' }
-getFlowLines <- function(Range, streamorder = 3, filePath=NA){
+getFlowLines <- function(mapRange, streamorder = 3, filePath=NA){
   baseURL <- "http://cida-test.er.usgs.gov/nhdplus/geoserver/nhdPlus/ows?service=WFS&version=1.1.0&srsName=EPSG:4269&request=GetFeature&typeName=nhdPlus:nhdflowline_network"
   
   postURL <- "http://cida-test.er.usgs.gov/nhdplus/geoserver/nhdPlus/ows"
@@ -170,8 +170,8 @@ getFlowLines <- function(Range, streamorder = 3, filePath=NA){
                         '<ogc:BBOX>',
                           '<ogc:PropertyName>the_geom</ogc:PropertyName>',
                           '<gml:Envelope>',
-                            '<gml:lowerCorner>',Range[3]," ",Range[1],'</gml:lowerCorner>',
-                            '<gml:upperCorner>',Range[4]," ",Range[2],'</gml:upperCorner>',
+                            '<gml:lowerCorner>',mapRange[3]," ",mapRange[1],'</gml:lowerCorner>',
+                            '<gml:upperCorner>',mapRange[4]," ",mapRange[2],'</gml:upperCorner>',
                           '</gml:Envelope>',
                         '</ogc:BBOX>',
                       '</ogc:And>',
