@@ -37,12 +37,12 @@ plotWSB(sites, mapRange = c(-81,-73,38,44),streamorder = 4)
 ```
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpkfBzyP", layer: "epa_basins"
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpcznSzm", layer: "epa_basins"
     ## with 4 features
     ## It has 4 fields
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpkfBzyP", layer: "nhdflowline_network"
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpcznSzm", layer: "nhdflowline_network"
     ## with 21283 features
     ## It has 89 fields
 
@@ -63,12 +63,12 @@ plotWSB(sites)
 ```
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpkfBzyP", layer: "epa_basins"
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpcznSzm", layer: "epa_basins"
     ## with 4 features
     ## It has 4 fields
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpkfBzyP", layer: "nhdflowline_network"
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpcznSzm", layer: "nhdflowline_network"
     ## with 47523 features
     ## It has 89 fields
 
@@ -76,7 +76,13 @@ plotWSB(sites)
     ## discarded
 
 ``` r
-points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=2)
+points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=2,streamorder = 4)
+```
+
+    ## Warning in plot.xy(xy.coords(x, y), type = type, ...): "streamorder" is not
+    ## a graphical parameter
+
+``` r
 axis(2,las=1)
 axis(1,las=1)
 title(paste("Sites:",paste0(siteInfo$site_no,collapse = ",")))
@@ -109,7 +115,7 @@ leaflet() %>%
 Screen shot: ![](README_files/figure-markdown_github//leafletScreen.png)
 
 Contribute
-==========
+----------
 
 In order to contribute to this code, we recommend the following workflow:
 
@@ -142,7 +148,7 @@ In order to contribute to this code, we recommend the following workflow:
 8.  submit a pull request to USGS-R master using your account at github.com
 
 Disclaimer
-==========
+----------
 
 This software is in the public domain because it contains materials that originally came from the U.S. Geological Survey, an agency of the United States Department of Interior. For more information, see the [official USGS copyright policy](http://www.usgs.gov/visual-id/credit_usgs.html#copyright/ "official USGS copyright policy")
 
