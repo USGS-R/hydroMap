@@ -14,7 +14,7 @@ sites=c("04189000","04197100","04198000","04185000","04199500","04176500","04193
 siteInfo <- readNWISsite(sites)
 
 # png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
-plotWSB(sites, mapRange=Range, streamorder = 3)
+plotWSB(sites, mapRange=Range, streamorder = 5)
 points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
 box()
 # dev.off()
@@ -24,7 +24,7 @@ box()
 library(leaflet)
 basins <- getBasin(sites)
 Range=c(-86.32679,-81.16322,39.61600,43.06262)
-flowLines <- getFlowLines(Range, streamorder = 3)
+flowLines <- getFlowLines(Range, streamorder = 5)
 
 leaflet() %>% 
   addProviderTiles("CartoDB.Positron") %>% 

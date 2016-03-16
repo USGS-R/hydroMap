@@ -29,21 +29,21 @@ Sample Workflow
 ``` r
 library(hydroMap)
 library(dataRetrieval)
-sites <- c("01491000", "01573000", "01576000","01137500")
+sites <- c("01573000", "01576000")
 siteInfo <- readNWISsite(sites)
 
 # png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
-plotWSB(sites, mapRange = c(-81,-73,38,44),streamorder = 4)
+plotWSB(sites, mapRange = c(-81,-73,38,44),streamorder = 5)
 ```
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpcznSzm", layer: "epa_basins"
-    ## with 4 features
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpIjjOek", layer: "epa_basins"
+    ## with 2 features
     ## It has 4 fields
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpcznSzm", layer: "nhdflowline_network"
-    ## with 21283 features
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpIjjOek", layer: "nhdflowline_network"
+    ## with 9638 features
     ## It has 89 fields
 
     ## Warning in readOGR(filePath, layer = "nhdflowline_network"): Z-dimension
@@ -59,24 +59,24 @@ Use base R graphics to add information:
 ---------------------------------------
 
 ``` r
-plotWSB(sites)
+plotWSB(sites, mapRange = c(-81,-73,38,44),streamorder = 5)
 ```
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpcznSzm", layer: "epa_basins"
-    ## with 4 features
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpIjjOek", layer: "epa_basins"
+    ## with 2 features
     ## It has 4 fields
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpcznSzm", layer: "nhdflowline_network"
-    ## with 47523 features
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpIjjOek", layer: "nhdflowline_network"
+    ## with 9638 features
     ## It has 89 fields
 
     ## Warning in readOGR(filePath, layer = "nhdflowline_network"): Z-dimension
     ## discarded
 
 ``` r
-points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=2,streamorder = 4)
+points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=2,streamorder = 5)
 ```
 
     ## Warning in plot.xy(xy.coords(x, y), type = type, ...): "streamorder" is not
@@ -96,12 +96,12 @@ Create Interactive Graphs using Leaflet:
 ``` r
 library(leaflet)
 basins <- getBasin(sites)
-Range=c(-86.32679,-81.16322,39.61600,43.06262)
-flowLines <- getFlowLines(Range, 3)
+Range=c(-81,-73,38,44)
+flowLines <- getFlowLines(Range, streamorder = 5)
 
 leaflet() %>% 
   addProviderTiles("CartoDB.Positron") %>% 
-  setView(-84, 41.35, zoom = 8) %>%
+  setView(-78, 41, zoom = 6) %>%
   addPolygons(data=basins, weight=2, color = "grey") %>%
   addPolylines(data=flowLines, weight=1) %>%
   addCircleMarkers(siteInfo$dec_long_va,siteInfo$dec_lat_va,
