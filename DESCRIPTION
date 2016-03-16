@@ -1,10 +1,12 @@
 Package: hydroMap
 Type: Package
 Title: Watershed boundaries
-Version: 0.1.0
+Version: 0.1.1
 Date: 2016-03-16
 Authors@R: c( person("Laura", "DeCicco", role = c("aut","cre"),
-    email = "ldecicco@usgs.gov"))
+    email = "ldecicco@usgs.gov"),
+              person("David", "Blodgett", role = "aut",
+    email = "dblodgett@usgs.gov"))
 Description: Watershed boundary and sites.
 License: CC0
 Copyright: This software is in the public domain because it contains materials
