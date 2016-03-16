@@ -80,9 +80,8 @@ clipShape <- function(shapefile, mapRange){
 #' @param sites character id
 #' @param filePath path to save shapefile. If NA, will go to temporary directory
 #' @return shapefile
-#' @importFrom httr GET
+#' @importFrom httr POST
 #' @importFrom httr write_disk
-#' @importFrom utils URLencode
 #' @import sp 
 #' @import rgdal 
 #' @export
@@ -92,8 +91,12 @@ clipShape <- function(shapefile, mapRange){
 #' basinShapes <- getBasin(sites)
 #' }
 getBasin <- function(sites, filePath = NA){
-  baseURL <- "http://cida-test.er.usgs.gov/nwc/geoserver/NWC/ows?service=WFS&version=1.1.0&srsName=EPSG:4326&request=GetFeature&typeName=NWC:epa_basins"
   
+  postURL <- "http://cida-test.er.usgs.gov/nwc/geoserver/NWC/ows"
+
+  filterXML <- paste0('<?xml version="1.0"?>',
+                      '<wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" service="WFS" version="1.1.0" outputFormat="shape-zip" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd">',
+                      '<wfs:Query xmlns:feature="http://owi.usgs.gov/NWC" typeName="feature:epa_basins" srsName="EPSG:4326">')
   siteText <- ""
   for(i in sites){
     siteText <- paste0(siteText,'<ogc:PropertyIsEqualTo  matchCase="true">',
@@ -103,7 +106,7 @@ getBasin <- function(sites, filePath = NA){
   }
   
   if(length(sites) > 1){
-    filterXML <- paste0('<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">',
+    filterXML <- paste0(filterXML,'<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">',
                         '<ogc:Or>',siteText,'</ogc:Or>',
                         '</ogc:Filter>')
     
@@ -116,12 +119,12 @@ getBasin <- function(sites, filePath = NA){
                         '</ogc:Filter>')
   }
   
-  filterXML <- URLencode(filterXML,reserved = TRUE)
+  filterXML <- paste0(filterXML,'</wfs:Query>',
+                      '</wfs:GetFeature>')
   
-  requestURL <- paste0(baseURL,"&outputFormat=shape-zip", "&filter=", filterXML)
   destination = tempfile(pattern = 'basins_shape', fileext='.zip')
-  file <- GET(requestURL, write_disk(destination, overwrite=T))
   
+  file <- POST(postURL, body = filterXML, write_disk(destination, overwrite=T))
   if(is.na(filePath)){
     filePath <- tempdir()
   }
