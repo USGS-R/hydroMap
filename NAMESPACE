@@ -2,11 +2,13 @@
 
 export(clipShape)
 export(getBasin)
+export(getFlowLines)
 export(plotWSB)
 import(raster)
 import(rgdal)
 import(rgeos)
 import(sp)
 importFrom(httr,GET)
+importFrom(httr,POST)
 importFrom(httr,write_disk)
 importFrom(utils,URLencode)

@@ -4,10 +4,12 @@
 \alias{getBasin}
 \title{Get shapefile basins}
 \usage{
-getBasin(sites)
+getBasin(sites, filePath = NA)
 }
 \arguments{
 \item{sites}{character id}
+
+\item{filePath}{path to save shapefile. If NA, will go to temporary directory}
 }
 \value{
 shapefile
@@ -16,7 +18,9 @@ shapefile
 Get shapefile basins
 }
 \examples{
+\dontrun{
 sites <- c("01491000", "01573000", "01576000","01137500","06485500")
 basinShapes <- getBasin(sites)
+}
 }
 

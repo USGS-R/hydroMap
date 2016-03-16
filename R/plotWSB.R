@@ -3,50 +3,50 @@
 #' Basic plot
 #' @param sites character vector of site ids
 #' @param col for basin fill
+#' @param streamorder integer
+#' @param filePath path to save shapefiles. If NA, will go to temporary directory
 #' @param mapRange vector of map limits (min long, max long, min lat, max lat)
 #' @import sp 
 #' @import rgdal
 #' @export
 #' @examples
-#' sites <- c("01137500","01491000", "01573000", "01576000","06485500")
-#' path <- system.file("extdata", package="hydroMap")
-#' siteInfo <- readRDS(file.path(path,"siteInfo.rds"))
-#' png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
-#' plotWSB(sites)
-#' points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
-#' dev.off()
+#' \dontrun{
+#' library(dataRetrieval)
+#' Range=c(-86.32679,-81.16322,39.61600,43.06262)
+#' sites=c("04189000","04197100","04198000","04185000","04199500","04176500","04193500")
+#' siteInfo <- readNWISsite(sites)
 #' 
-#' plotWSB(sites[4], mapRange=c(-80,-74, 38, 46))
-#' points(siteInfo$dec_long_va[4], siteInfo$dec_lat_va[4], pch=20, col="red", cex=1)
-plotWSB <- function(sites,col="#A8A8A850", mapRange = NA){
+#' png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
+#' plotWSB(sites, mapRange=Range)
+#' points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
+#' box()
+#' dev.off()
+#' }
+plotWSB <- function(sites,col="#A8A8A850", mapRange = NA, streamorder=3, filePath=NA){
 
   shape_hydropoly <- shape_hydropoly
   shape_polibounds <- shape_polibounds
-  shape_hydroline <- shape_hydroline
-  basins <- getBasin(sites)
+  
+  basins <- getBasin(sites, filePath)
   basins <- spTransform(basins,CRS(proj4string(shape_polibounds)))
+  
   if(all(is.na(mapRange))){
     plot(basins, col=col)
     mapRange <- par()$usr
-    shape_hydropoly <- clipShape(shape_hydropoly, mapRange)
-    shape_polibounds <- clipShape(shape_polibounds, mapRange)
-    shape_hydroline <- clipShape(shape_hydroline, mapRange)
-    
-    plot(shape_hydropoly,col="lightskyblue2",add=TRUE)
-    lines(shape_hydroline,col="lightskyblue2")
-    plot(shape_polibounds,add=TRUE)    
   } else {
-
-    shape_hydropoly <- clipShape(shape_hydropoly, mapRange)
-    shape_polibounds <- clipShape(shape_polibounds, mapRange)
-    shape_hydroline <- clipShape(shape_hydroline, mapRange)
-    basins <- crop(basins, extent(mapRange)) #should figure this out...clipping a SpatialPolygonsDataFrame
-    
-    plot(shape_hydropoly,col="lightskyblue2")
-    lines(shape_hydroline,col="lightskyblue2")
-    plot(shape_polibounds,add=TRUE)
-    plot(basins, col=col,add=TRUE)
+    basins <- crop(basins, extent(mapRange)) 
+    plot(basins, col=col)
   }
+
+  shape_hydropoly <- clipShape(shape_hydropoly, mapRange)
+  shape_polibounds <- clipShape(shape_polibounds, mapRange)
+  
+  flowLines <- getFlowLines(mapRange, streamorder, filePath)
+  lowFlow <- clipShape(flowLines,mapRange)
+
+  plot(shape_hydropoly,col="lightskyblue2",add=TRUE)
+  plot(lowFlow,col="lightskyblue2",add=TRUE)
+  plot(shape_polibounds,add=TRUE)
  
 }
 
@@ -78,6 +78,7 @@ clipShape <- function(shapefile, mapRange){
 #' 
 #' Get shapefile basins
 #' @param sites character id
+#' @param filePath path to save shapefile. If NA, will go to temporary directory
 #' @return shapefile
 #' @importFrom httr GET
 #' @importFrom httr write_disk
@@ -86,9 +87,11 @@ clipShape <- function(shapefile, mapRange){
 #' @import rgdal 
 #' @export
 #' @examples
+#' \dontrun{
 #' sites <- c("01491000", "01573000", "01576000","01137500","06485500")
 #' basinShapes <- getBasin(sites)
-getBasin <- function(sites){
+#' }
+getBasin <- function(sites, filePath = NA){
   baseURL <- "http://cida-test.er.usgs.gov/nwc/geoserver/NWC/ows?service=WFS&version=1.1.0&srsName=EPSG:4326&request=GetFeature&typeName=NWC:epa_basins"
   
   siteText <- ""
@@ -118,8 +121,70 @@ getBasin <- function(sites){
   requestURL <- paste0(baseURL,"&outputFormat=shape-zip", "&filter=", filterXML)
   destination = tempfile(pattern = 'basins_shape', fileext='.zip')
   file <- GET(requestURL, write_disk(destination, overwrite=T))
-  shp.path <- tempdir()
-  unzip(destination, exdir = shp.path)
-  basins = readOGR(shp.path, layer='epa_basins')
+  
+  if(is.na(filePath)){
+    filePath <- tempdir()
+  }
+  
+  unzip(destination, exdir = filePath)
+  basins = readOGR(filePath, layer='epa_basins')
   return(basins)
 }
+
+
+#' Get shapefile flowlines
+#' 
+#' Get shapefile flowlines
+#' @param mapRange vector of map limits (min long, max long, min lat, max lat)
+#' @param streamorder integer stream order
+#' @param filePath path to save shapefile. If NA, will go to temporary directory
+#' @return shapefile
+#' @importFrom httr POST
+#' @importFrom httr write_disk
+#' @importFrom utils URLencode
+#' @import sp 
+#' @import rgdal 
+#' @export
+#' @examples
+#' \dontrun{
+#' Range=c(-86.32679,-81.16322,39.61600,43.06262)
+#' flowLines <- getFlowLines(Range, 5)
+#' }
+getFlowLines <- function(Range, streamorder = 3, filePath=NA){
+  baseURL <- "http://cida-test.er.usgs.gov/nhdplus/geoserver/nhdPlus/ows?service=WFS&version=1.1.0&srsName=EPSG:4269&request=GetFeature&typeName=nhdPlus:nhdflowline_network"
+  
+  postURL <- "http://cida-test.er.usgs.gov/nhdplus/geoserver/nhdPlus/ows"
+  
+  filterXML <- paste0('<?xml version="1.0"?>',
+                '<wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" service="WFS" version="1.1.0" outputFormat="shape-zip" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd">',
+                  '<wfs:Query xmlns:feature="http://owi.usgs.gov/nhdplus" typeName="feature:nhdflowline_network" srsName="EPSG:4326">',
+                    '<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">',
+                      '<ogc:And>',
+                        '<ogc:PropertyIsGreaterThan>',
+                          '<ogc:PropertyName>streamorde</ogc:PropertyName>',
+                          '<ogc:Literal>',streamorder-1,'</ogc:Literal>',
+                        '</ogc:PropertyIsGreaterThan>',
+                        '<ogc:BBOX>',
+                          '<ogc:PropertyName>the_geom</ogc:PropertyName>',
+                          '<gml:Envelope>',
+                            '<gml:lowerCorner>',Range[3]," ",Range[1],'</gml:lowerCorner>',
+                            '<gml:upperCorner>',Range[4]," ",Range[2],'</gml:upperCorner>',
+                          '</gml:Envelope>',
+                        '</ogc:BBOX>',
+                      '</ogc:And>',
+                    '</ogc:Filter>',
+                  '</wfs:Query>',
+                '</wfs:GetFeature>')
+
+  destination = file.path(tempdir(),"nhdflowline_network.zip")
+  file <- POST(postURL, body = filterXML, write_disk(destination, overwrite=T))
+  
+  if(is.na(filePath)){
+    filePath <- tempdir()
+  }
+  
+  unzip(destination, exdir = filePath)
+  flowLines = readOGR(filePath, layer='nhdflowline_network')
+  return(flowLines)
+}
+

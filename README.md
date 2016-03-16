@@ -27,20 +27,27 @@ Sample Workflow
 ===============
 
 ``` r
-library(dataRetrieval)
 library(hydroMap)
-
-sites <- c("01491000", "01573000", "01576000")
-
+library(dataRetrieval)
+sites <- c("01573000", "01576000")
 siteInfo <- readNWISsite(sites)
+
 # png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
-plotWSB(sites)
+plotWSB(sites, mapRange = c(-81,-73,38,44),streamorder = 5)
 ```
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\Rtmpkhr5kz", layer: "epa_basins"
-    ## with 3 features
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpIjjOek", layer: "epa_basins"
+    ## with 2 features
     ## It has 4 fields
+
+    ## OGR data source with driver: ESRI Shapefile 
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpIjjOek", layer: "nhdflowline_network"
+    ## with 9638 features
+    ## It has 89 fields
+
+    ## Warning in readOGR(filePath, layer = "nhdflowline_network"): Z-dimension
+    ## discarded
 
 ![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)<!-- -->
 
@@ -52,16 +59,30 @@ Use base R graphics to add information:
 ---------------------------------------
 
 ``` r
-plotWSB(sites)
+plotWSB(sites, mapRange = c(-81,-73,38,44),streamorder = 5)
 ```
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\Rtmpkhr5kz", layer: "epa_basins"
-    ## with 3 features
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpIjjOek", layer: "epa_basins"
+    ## with 2 features
     ## It has 4 fields
 
+    ## OGR data source with driver: ESRI Shapefile 
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpIjjOek", layer: "nhdflowline_network"
+    ## with 9638 features
+    ## It has 89 fields
+
+    ## Warning in readOGR(filePath, layer = "nhdflowline_network"): Z-dimension
+    ## discarded
+
 ``` r
-points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=2)
+points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=2,streamorder = 5)
+```
+
+    ## Warning in plot.xy(xy.coords(x, y), type = type, ...): "streamorder" is not
+    ## a graphical parameter
+
+``` r
 axis(2,las=1)
 axis(1,las=1)
 title(paste("Sites:",paste0(siteInfo$site_no,collapse = ",")))
@@ -75,13 +96,17 @@ Create Interactive Graphs using Leaflet:
 ``` r
 library(leaflet)
 basins <- getBasin(sites)
+Range=c(-81,-73,38,44)
+flowLines <- getFlowLines(Range, streamorder = 5)
+
 leaflet() %>% 
   addProviderTiles("CartoDB.Positron") %>% 
-  setView(-75.8, 40, zoom = 6) %>%
-  addPolygons(data=basins, weight=2) %>%
+  setView(-78, 41, zoom = 6) %>%
+  addPolygons(data=basins, weight=2, color = "grey") %>%
+  addPolylines(data=flowLines, weight=1) %>%
   addCircleMarkers(siteInfo$dec_long_va,siteInfo$dec_lat_va,
                    color = "red",
-                   radius=3,
+                   radius=4,
                    stroke=FALSE,
                    fillOpacity = 0.8, opacity = 0.8,
                    popup=siteInfo$station_nm)
@@ -90,7 +115,7 @@ leaflet() %>%
 Screen shot: ![](README_files/figure-markdown_github//leafletScreen.png)
 
 Contribute
-==========
+----------
 
 In order to contribute to this code, we recommend the following workflow:
 
@@ -123,7 +148,7 @@ In order to contribute to this code, we recommend the following workflow:
 8.  submit a pull request to USGS-R master using your account at github.com
 
 Disclaimer
-==========
+----------
 
 This software is in the public domain because it contains materials that originally came from the U.S. Geological Survey, an agency of the United States Department of Interior. For more information, see the [official USGS copyright policy](http://www.usgs.gov/visual-id/credit_usgs.html#copyright/ "official USGS copyright policy")
 
