@@ -4,9 +4,11 @@
 \alias{getFlowLines}
 \title{Get shapefile flowlines}
 \usage{
-getFlowLines(Range, streamOrder = 3)
+getFlowLines(Range, streamOrder = 3, filePath = NA)
 }
 \arguments{
+\item{filePath}{path to save shapefile. If NA, will go to temporary directory}
+
 \item{mapRange}{vector of map limits (min long, max long, min lat, max lat)}
 
 \item{streamorder}{integer stream order}
@@ -18,7 +20,9 @@ shapefile
 Get shapefile flowlines
 }
 \examples{
+\dontrun{
 Range=c(-86.32679,-81.16322,39.61600,43.06262)
 flowLines <- getFlowLines(Range, 5)
+}
 }
 

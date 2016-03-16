@@ -4,7 +4,8 @@
 \alias{plotWSB}
 \title{Basic plot of WSB based on huc}
 \usage{
-plotWSB(sites, col = "#A8A8A850", mapRange = NA, streamorder = 3)
+plotWSB(sites, col = "#A8A8A850", mapRange = NA, streamorder = 3,
+  filePath = NA)
 }
 \arguments{
 \item{sites}{character vector of site ids}
@@ -14,12 +15,14 @@ plotWSB(sites, col = "#A8A8A850", mapRange = NA, streamorder = 3)
 \item{mapRange}{vector of map limits (min long, max long, min lat, max lat)}
 
 \item{streamorder}{integer}
+
+\item{filePath}{path to save shapefiles. If NA, will go to temporary directory}
 }
 \description{
 Basic plot
 }
 \examples{
-
+\dontrun{
 library(dataRetrieval)
 Range=c(-86.32679,-81.16322,39.61600,43.06262)
 sites=c("04189000","04197100","04198000","04185000","04199500","04176500","04193500")
@@ -31,5 +34,6 @@ plotWSB(sites, mapRange=Range)
 points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
 box()
 dev.off()
+}
 }
 

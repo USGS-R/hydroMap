@@ -27,20 +27,27 @@ Sample Workflow
 ===============
 
 ``` r
-library(dataRetrieval)
 library(hydroMap)
-
-sites <- c("01491000", "01573000", "01576000")
-
+library(dataRetrieval)
+sites <- c("01491000", "01573000", "01576000","01137500")
 siteInfo <- readNWISsite(sites)
+
 # png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
-plotWSB(sites)
+plotWSB(sites, mapRange = c(-81,-73,38,44),streamorder = 4)
 ```
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\Rtmpkhr5kz", layer: "epa_basins"
-    ## with 3 features
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpkfBzyP", layer: "epa_basins"
+    ## with 4 features
     ## It has 4 fields
+
+    ## OGR data source with driver: ESRI Shapefile 
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpkfBzyP", layer: "nhdflowline_network"
+    ## with 21283 features
+    ## It has 89 fields
+
+    ## Warning in readOGR(filePath, layer = "nhdflowline_network"): Z-dimension
+    ## discarded
 
 ![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)<!-- -->
 
@@ -56,9 +63,17 @@ plotWSB(sites)
 ```
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\Rtmpkhr5kz", layer: "epa_basins"
-    ## with 3 features
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpkfBzyP", layer: "epa_basins"
+    ## with 4 features
     ## It has 4 fields
+
+    ## OGR data source with driver: ESRI Shapefile 
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpkfBzyP", layer: "nhdflowline_network"
+    ## with 47523 features
+    ## It has 89 fields
+
+    ## Warning in readOGR(filePath, layer = "nhdflowline_network"): Z-dimension
+    ## discarded
 
 ``` r
 points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=2)
@@ -75,13 +90,17 @@ Create Interactive Graphs using Leaflet:
 ``` r
 library(leaflet)
 basins <- getBasin(sites)
+Range=c(-86.32679,-81.16322,39.61600,43.06262)
+flowLines <- getFlowLines(Range, 3)
+
 leaflet() %>% 
   addProviderTiles("CartoDB.Positron") %>% 
-  setView(-75.8, 40, zoom = 6) %>%
-  addPolygons(data=basins, weight=2) %>%
+  setView(-84, 41.35, zoom = 8) %>%
+  addPolygons(data=basins, weight=2, color = "grey") %>%
+  addPolylines(data=flowLines, weight=1) %>%
   addCircleMarkers(siteInfo$dec_long_va,siteInfo$dec_lat_va,
                    color = "red",
-                   radius=3,
+                   radius=4,
                    stroke=FALSE,
                    fillOpacity = 0.8, opacity = 0.8,
                    popup=siteInfo$station_nm)
