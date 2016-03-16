@@ -26,7 +26,6 @@ Basic plot
 library(dataRetrieval)
 Range=c(-86.32679,-81.16322,39.61600,43.06262)
 sites=c("04189000","04197100","04198000","04185000","04199500","04176500","04193500")
-basins=getBasin(sites)
 siteInfo <- readNWISsite(sites)
 
 png("test.png",width=11,height=8,units="in",res=600,pointsize=4)

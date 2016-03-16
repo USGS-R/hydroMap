@@ -14,7 +14,6 @@
 #' library(dataRetrieval)
 #' Range=c(-86.32679,-81.16322,39.61600,43.06262)
 #' sites=c("04189000","04197100","04198000","04185000","04199500","04176500","04193500")
-#' basins=getBasin(sites)
 #' siteInfo <- readNWISsite(sites)
 #' 
 #' png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
@@ -151,7 +150,7 @@ getBasin <- function(sites, filePath = NA){
 #' Range=c(-86.32679,-81.16322,39.61600,43.06262)
 #' flowLines <- getFlowLines(Range, 5)
 #' }
-getFlowLines <- function(Range, streamOrder = 3, filePath=NA){
+getFlowLines <- function(Range, streamorder = 3, filePath=NA){
   baseURL <- "http://cida-test.er.usgs.gov/nhdplus/geoserver/nhdPlus/ows?service=WFS&version=1.1.0&srsName=EPSG:4269&request=GetFeature&typeName=nhdPlus:nhdflowline_network"
   
   postURL <- "http://cida-test.er.usgs.gov/nhdplus/geoserver/nhdPlus/ows"
@@ -163,7 +162,7 @@ getFlowLines <- function(Range, streamOrder = 3, filePath=NA){
                       '<ogc:And>',
                         '<ogc:PropertyIsGreaterThan>',
                           '<ogc:PropertyName>streamorde</ogc:PropertyName>',
-                          '<ogc:Literal>',streamOrder-1,'</ogc:Literal>',
+                          '<ogc:Literal>',streamorder-1,'</ogc:Literal>',
                         '</ogc:PropertyIsGreaterThan>',
                         '<ogc:BBOX>',
                           '<ogc:PropertyName>the_geom</ogc:PropertyName>',
