@@ -4,14 +4,14 @@
 \alias{getFlowLines}
 \title{Get shapefile flowlines}
 \usage{
-getFlowLines(Range, streamorder = 3, filePath = NA)
+getFlowLines(mapRange, streamorder = 3, filePath = NA)
 }
 \arguments{
+\item{mapRange}{vector of map limits (min long, max long, min lat, max lat)}
+
 \item{streamorder}{integer stream order}
 
 \item{filePath}{path to save shapefile. If NA, will go to temporary directory}
-
-\item{mapRange}{vector of map limits (min long, max long, min lat, max lat)}
 }
 \value{
 shapefile
