@@ -2,6 +2,7 @@
 
 export(clipShape)
 export(getBasin)
+export(getFlowLines)
 export(plotWSB)
 import(raster)
 import(rgdal)
