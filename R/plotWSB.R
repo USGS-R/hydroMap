@@ -17,7 +17,8 @@
 #' 
 #' png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
 #' plotWSB(sites, mapRange=Range)
-#' points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=1)
+#' points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
+#' box()
 #' dev.off()
 plotWSB <- function(sites,col="#A8A8A850", mapRange = NA, flowDensity=3){
 

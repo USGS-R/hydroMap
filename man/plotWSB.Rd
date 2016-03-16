@@ -4,7 +4,7 @@
 \alias{plotWSB}
 \title{Basic plot of WSB based on huc}
 \usage{
-plotWSB(sites, col = "#A8A8A850", mapRange = NA)
+plotWSB(sites, col = "#A8A8A850", mapRange = NA, flowDensity = 3)
 }
 \arguments{
 \item{sites}{character vector of site ids}
@@ -17,15 +17,17 @@ plotWSB(sites, col = "#A8A8A850", mapRange = NA)
 Basic plot
 }
 \examples{
-sites <- c("01137500","01491000", "01573000", "01576000","06485500")
-path <- system.file("extdata", package="hydroMap")
-siteInfo <- readRDS(file.path(path,"siteInfo.rds"))
-png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
-plotWSB(sites)
-points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
-dev.off()
 
-plotWSB(sites[4], mapRange=c(-80,-74, 38, 46))
-points(siteInfo$dec_long_va[4], siteInfo$dec_lat_va[4], pch=20, col="red", cex=1)
+library(dataRetrieval)
+Range=c(-86.32679,-81.16322,39.61600,43.06262)
+sites=c("04189000","04197100","04198000","04185000","04199500","04176500","04193500")
+basins=getBasin(sites)
+siteInfo <- readNWISsite(sites)
+
+png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
+plotWSB(sites, mapRange=Range)
+points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
+box()
+dev.off()
 }
 
