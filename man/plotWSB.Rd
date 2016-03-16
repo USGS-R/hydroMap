@@ -4,7 +4,7 @@
 \alias{plotWSB}
 \title{Basic plot of WSB based on huc}
 \usage{
-plotWSB(sites, col = "#A8A8A850", mapRange = NA, flowDensity = 3)
+plotWSB(sites, col = "#A8A8A850", mapRange = NA, streamorder = 3)
 }
 \arguments{
 \item{sites}{character vector of site ids}
@@ -12,6 +12,8 @@ plotWSB(sites, col = "#A8A8A850", mapRange = NA, flowDensity = 3)
 \item{col}{for basin fill}
 
 \item{mapRange}{vector of map limits (min long, max long, min lat, max lat)}
+
+\item{streamorder}{integer}
 }
 \description{
 Basic plot

@@ -25,6 +25,7 @@ library(knitr)
 
 # Sample workflow:
 
+There is a convience function to make a map with state boundaries, major lakes, and flow lines. This function can take quite awhile to complete, especially for larger map areas. It is not recommended for areas larger than one state.
 
 ```{r message=FALSE} 
 library(hydroMap)
@@ -32,7 +33,7 @@ library(dataRetrieval)
 sites <- c("01491000", "01573000", "01576000","01137500")
 
 siteInfo <- readNWISsite(sites)
-plotWSB(sites, mapRange = c(-81,-73,38,44))
+plotWSB(sites, mapRange = c(-81,-73,38,44),flowDensity = 4)
 points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=1)
 box()
 

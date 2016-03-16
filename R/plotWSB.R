@@ -3,6 +3,7 @@
 #' Basic plot
 #' @param sites character vector of site ids
 #' @param col for basin fill
+#' @param streamorder integer
 #' @param mapRange vector of map limits (min long, max long, min lat, max lat)
 #' @import sp 
 #' @import rgdal
@@ -20,7 +21,7 @@
 #' points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
 #' box()
 #' dev.off()
-plotWSB <- function(sites,col="#A8A8A850", mapRange = NA, flowDensity=3){
+plotWSB <- function(sites,col="#A8A8A850", mapRange = NA, streamorder=3){
 
   shape_hydropoly <- shape_hydropoly
   shape_polibounds <- shape_polibounds
@@ -39,7 +40,7 @@ plotWSB <- function(sites,col="#A8A8A850", mapRange = NA, flowDensity=3){
   shape_hydropoly <- clipShape(shape_hydropoly, mapRange)
   shape_polibounds <- clipShape(shape_polibounds, mapRange)
   
-  flowLines <- getFlowLines(mapRange, flowDensity)
+  flowLines <- getFlowLines(mapRange, streamorder)
   lowFlow <- clipShape(flowLines,mapRange)
 
   plot(shape_hydropoly,col="lightskyblue2",add=TRUE)
@@ -127,6 +128,7 @@ getBasin <- function(sites){
 #' 
 #' Get shapefile flowlines
 #' @param mapRange vector of map limits (min long, max long, min lat, max lat)
+#' @param streamorder integer stream order
 #' @return shapefile
 #' @importFrom httr GET
 #' @importFrom httr write_disk
@@ -137,7 +139,7 @@ getBasin <- function(sites){
 #' @examples
 #' Range=c(-86.32679,-81.16322,39.61600,43.06262)
 #' flowLines <- getFlowLines(Range, 5)
-getFlowLines <- function(Range, streamOrder){
+getFlowLines <- function(Range, streamOrder = 3){
   baseURL <- "http://cida-test.er.usgs.gov/nhdplus/geoserver/nhdPlus/ows?service=WFS&version=1.1.0&srsName=EPSG:4269&request=GetFeature&typeName=nhdPlus:nhdflowline_network"
   
   postURL <- "http://cida-test.er.usgs.gov/nhdplus/geoserver/nhdPlus/ows"
