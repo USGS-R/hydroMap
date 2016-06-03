@@ -97,21 +97,24 @@ getBasin <- function(sites, filePath = NA){
   filterXML <- paste0('<?xml version="1.0"?>',
                       '<wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" service="WFS" version="1.1.0" outputFormat="shape-zip" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd">',
                       '<wfs:Query xmlns:feature="http://owi.usgs.gov/NWC" typeName="feature:epa_basins" srsName="EPSG:4326">')
-  siteText <- ""
-  for(i in sites){
-    siteText <- paste0(siteText,'<ogc:PropertyIsEqualTo  matchCase="true">',
-                       '<ogc:PropertyName>site_no</ogc:PropertyName>',
-                       '<ogc:Literal>',i,'</ogc:Literal>',
-                       '</ogc:PropertyIsEqualTo>')
-  }
+
   
   if(length(sites) > 1){
+    siteText <- ""
+    for(i in sites){
+      siteText <- paste0(siteText,'<ogc:PropertyIsEqualTo  matchCase="true">',
+                         '<ogc:PropertyName>site_no</ogc:PropertyName>',
+                         '<ogc:Literal>',i,'</ogc:Literal>',
+                         '</ogc:PropertyIsEqualTo>')
+    }
+    
     filterXML <- paste0(filterXML,'<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">',
                         '<ogc:Or>',siteText,'</ogc:Or>',
                         '</ogc:Filter>')
     
   } else {
-    filterXML <- paste0('<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">',
+    filterXML <- paste0(filterXML,
+                        '<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">',
                         '<ogc:PropertyIsEqualTo matchCase="true">',
                         '<ogc:PropertyName>site_no</ogc:PropertyName>',
                         '<ogc:Literal>',sites,'</ogc:Literal>',
