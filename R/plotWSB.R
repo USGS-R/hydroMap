@@ -21,6 +21,15 @@
 #' points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
 #' box()
 #' dev.off()
+#' 
+#' 
+#' site <- '08076000'
+#' siteInfo <- readNWISsite(site)
+#' png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
+#' plotWSB(site)
+#' points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
+#' box()
+#' dev.off()
 #' }
 plotWSB <- function(sites,col="#A8A8A850", mapRange = NA, streamorder=3, filePath=NA){
 
@@ -44,9 +53,18 @@ plotWSB <- function(sites,col="#A8A8A850", mapRange = NA, streamorder=3, filePat
   flowLines <- getFlowLines(mapRange, streamorder, filePath)
   lowFlow <- clipShape(flowLines,mapRange)
 
-  plot(shape_hydropoly,col="lightskyblue2",add=TRUE)
-  plot(lowFlow,col="lightskyblue2",add=TRUE)
-  plot(shape_polibounds,add=TRUE)
+  if(!is.null(shape_hydropoly)){
+    plot(shape_hydropoly,col="lightskyblue2",add=TRUE)
+  }
+  
+  if(!is.null(lowFlow)){
+    plot(lowFlow,col="lightskyblue2",add=TRUE)
+  }
+  
+  if(!is.null(shape_polibounds)){
+    plot(shape_polibounds,add=TRUE)
+  }
+  
  
 }
 

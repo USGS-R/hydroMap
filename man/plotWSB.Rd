@@ -33,6 +33,15 @@ plotWSB(sites, mapRange=Range)
 points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
 box()
 dev.off()
+
+
+site <- '08076000'
+siteInfo <- readNWISsite(site)
+png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
+plotWSB(site)
+points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
+box()
+dev.off()
 }
 }
 
