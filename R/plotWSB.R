@@ -21,6 +21,15 @@
 #' points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
 #' box()
 #' dev.off()
+#' 
+#' 
+#' site <- '08076000'
+#' siteInfo <- readNWISsite(site)
+#' png("test.png",width=11,height=8,units="in",res=600,pointsize=4)
+#' plotWSB(site)
+#' points(siteInfo$dec_long_va, siteInfo$dec_lat_va, pch=20, col="red", cex=3)
+#' box()
+#' dev.off()
 #' }
 plotWSB <- function(sites,col="#A8A8A850", mapRange = NA, streamorder=3, filePath=NA){
 
@@ -44,9 +53,18 @@ plotWSB <- function(sites,col="#A8A8A850", mapRange = NA, streamorder=3, filePat
   flowLines <- getFlowLines(mapRange, streamorder, filePath)
   lowFlow <- clipShape(flowLines,mapRange)
 
-  plot(shape_hydropoly,col="lightskyblue2",add=TRUE)
-  plot(lowFlow,col="lightskyblue2",add=TRUE)
-  plot(shape_polibounds,add=TRUE)
+  if(!is.null(shape_hydropoly)){
+    plot(shape_hydropoly,col="lightskyblue2",add=TRUE)
+  }
+  
+  if(!is.null(lowFlow)){
+    plot(lowFlow,col="lightskyblue2",add=TRUE)
+  }
+  
+  if(!is.null(shape_polibounds)){
+    plot(shape_polibounds,add=TRUE)
+  }
+  
  
 }
 
@@ -97,21 +115,24 @@ getBasin <- function(sites, filePath = NA){
   filterXML <- paste0('<?xml version="1.0"?>',
                       '<wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" service="WFS" version="1.1.0" outputFormat="shape-zip" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd">',
                       '<wfs:Query xmlns:feature="http://owi.usgs.gov/NWC" typeName="feature:epa_basins" srsName="EPSG:4326">')
-  siteText <- ""
-  for(i in sites){
-    siteText <- paste0(siteText,'<ogc:PropertyIsEqualTo  matchCase="true">',
-                       '<ogc:PropertyName>site_no</ogc:PropertyName>',
-                       '<ogc:Literal>',i,'</ogc:Literal>',
-                       '</ogc:PropertyIsEqualTo>')
-  }
+
   
   if(length(sites) > 1){
+    siteText <- ""
+    for(i in sites){
+      siteText <- paste0(siteText,'<ogc:PropertyIsEqualTo  matchCase="true">',
+                         '<ogc:PropertyName>site_no</ogc:PropertyName>',
+                         '<ogc:Literal>',i,'</ogc:Literal>',
+                         '</ogc:PropertyIsEqualTo>')
+    }
+    
     filterXML <- paste0(filterXML,'<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">',
                         '<ogc:Or>',siteText,'</ogc:Or>',
                         '</ogc:Filter>')
     
   } else {
-    filterXML <- paste0('<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">',
+    filterXML <- paste0(filterXML,
+                        '<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">',
                         '<ogc:PropertyIsEqualTo matchCase="true">',
                         '<ogc:PropertyName>site_no</ogc:PropertyName>',
                         '<ogc:Literal>',sites,'</ogc:Literal>',
