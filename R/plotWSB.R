@@ -44,7 +44,7 @@ plotWSB <- function(sites,col="#A8A8A850", mapRange = NA, streamorder=3, filePat
     mapRange <- par()$usr
   } else {
     basins <- crop(basins, extent(mapRange)) 
-    plot(basins, col=col)
+    plot(basins, col=col, xlim = mapRange[c(1,2)], ylim = mapRange[c(3,4)])
   }
 
   shape_hydropoly <- clipShape(shape_hydropoly, mapRange)
