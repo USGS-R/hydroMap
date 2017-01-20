@@ -114,7 +114,7 @@ getBasin <- function(sites, filePath = NA){
   # postURL <- "http://cida-test.er.usgs.gov/nwc/geoserver/NWC/ows"
   filterXML <- paste0('<?xml version="1.0"?>',
                       '<wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" service="WFS" version="1.1.0" outputFormat="shape-zip" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd">',
-                      '<wfs:Query xmlns:feature="http://owi.usgs.gov/NWC" typeName="feature:epa_basins" srsName="EPSG:4326">')
+                      '<wfs:Query xmlns:feature="https://owi.usgs.gov/NWC" typeName="feature:epa_basins" srsName="EPSG:4326">')
 
   
   if(length(sites) > 1){
@@ -180,7 +180,7 @@ getFlowLines <- function(mapRange, streamorder = 3, filePath=NA){
   
   filterXML <- paste0('<?xml version="1.0"?>',
                 '<wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" service="WFS" version="1.1.0" outputFormat="shape-zip" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd">',
-                  '<wfs:Query xmlns:feature="http://gov.usgs.cida/nhdplus" typeName="feature:nhdflowline_network" srsName="EPSG:4326">',
+                  '<wfs:Query xmlns:feature="https://gov.usgs.cida/nhdplus" typeName="feature:nhdflowline_network" srsName="EPSG:4326">',
                     '<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">',
                       '<ogc:And>',
                         '<ogc:PropertyIsGreaterThan>',
