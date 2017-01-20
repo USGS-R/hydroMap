@@ -1,8 +1,8 @@
 Package: hydroMap
 Type: Package
 Title: Watershed boundaries
-Version: 0.1.3
-Date: 2016-07-11
+Version: 0.1.4
+Date: 2017-01-20
 Authors@R: c( person("Laura", "DeCicco", role = c("aut","cre"),
     email = "ldecicco@usgs.gov"),
               person("David", "Blodgett", role = "aut",
