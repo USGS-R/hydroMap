@@ -5,7 +5,7 @@ This package is NOT CURRENTLY supported.
 ## Package Status
 
 |Linux|Test Coverage| USGS Status |
-|----------|------------|------------|------------|
+|----------|------------|------------|
 | [![travis](https://travis-ci.org/USGS-R/hydroMap.svg?branch=master)](https://travis-ci.org/USGS-R/hydroMap)|[![Coverage Status](https://coveralls.io/repos/github/USGS-R/hydroMap/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/hydroMap?branch=master)|[![status](https://img.shields.io/badge/USGS-Research-blue.svg)](https://owi.usgs.gov/R/packages.html#research)|
 
 ### Reporting bugs
