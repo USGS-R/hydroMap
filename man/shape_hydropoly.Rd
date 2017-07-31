@@ -3,6 +3,7 @@
 \docType{data}
 \name{shape_hydropoly}
 \alias{shape_hydropoly}
+\alias{shape_hydropoly}
 \title{Lakes in US}
 \description{
 Lake shapefiles from \url{http://dds.cr.usgs.gov/pub/data/nationalatlas/hydro0m_shp_nt00300.tar.gz}
@@ -11,4 +12,3 @@ Lake shapefiles from \url{http://dds.cr.usgs.gov/pub/data/nationalatlas/hydro0m_
 }
 \keyword{data}
 \keyword{station}
-

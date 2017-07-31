@@ -1,4 +1,25 @@
-[![Build Status](https://travis-ci.org/USGS-R/hydroMaps.svg)](https://travis-ci.org/USGS-R/hydroMaps)
+# hydroMap
+
+This package is NOT CURRENTLY supported. 
+
+## Package Status
+
+|Linux|Windows|Test Coverage| USGS Status |
+|----------|------------|------------|------------|
+| [![travis](https://travis-ci.org/USGS-R/hydroMap.svg?branch=master)](https://travis-ci.org/USGS-R/hydroMap)|[![Build status](https://ci.appveyor.com/api/projects/status/i2hr35abwxx85vgs?svg=true)](https://ci.appveyor.com/project/ldecicco-USGS/hydroMap)|[![Coverage Status](https://coveralls.io/repos/github/USGS-R/hydroMap/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/hydroMap?branch=master)|[![status](https://img.shields.io/badge/USGS-Research-blue.svg)](https://owi.usgs.gov/R/packages.html#research)|
+
+### Reporting bugs
+
+Please consider reporting bugs and asking questions on the Issues page:
+[https://github.com/USGS-R/hydroMap/issues](https://github.com/USGS-R/hydroMap/issues)
+
+Follow `@USGS_R` on Twitter for updates on USGS R packages:
+
+[![Twitter Follow](https://img.shields.io/twitter/follow/USGS_R.svg?style=social&label=Follow%20USGS_R)](https://twitter.com/USGS_R)
+
+### Code of Conduct
+
+We want to encourage a warm, welcoming, and safe environment for contributing to this project. See the [code of conduct](https://github.com/USGS-R/hydroMap/blob/master/CONDUCT.md) for more information.
 
 Installation
 ============
