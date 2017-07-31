@@ -1,6 +1,6 @@
 # hydroMap
 
-Initial code for studying ToxCast data in relation to measured concentrations.
+This package is NOT CURRENTLY supported. 
 
 ## Package Status
 

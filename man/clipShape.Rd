@@ -19,4 +19,3 @@ mapRange=c(-80,-74, 38, 46)
 shape_hydropoly <- shape_hydropoly
 clippedShape <- clipShape(shape_hydropoly, mapRange)
 }
-
