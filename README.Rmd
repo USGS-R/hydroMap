@@ -31,6 +31,16 @@ Follow `@USGS_R` on Twitter for updates on USGS R packages:
 
 We want to encourage a warm, welcoming, and safe environment for contributing to this project. See the [code of conduct](https://github.com/USGS-R/hydroMap/blob/master/CONDUCT.md) for more information.
 
+### Package Support
+
+The Water Mission Area of the USGS supported the exploration of the development of the `hydroMaps` R-package. This package is not currently active.
+
+![USGS](http://usgs-r.github.io/images/usgs.png)
+
+### Sunset date 
+
+There is no current funding for `hydroMaps`. Users should be aware that they use this package at their own risk. 
+
 # Installation
 
 
