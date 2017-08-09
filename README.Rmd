@@ -35,7 +35,7 @@ We want to encourage a warm, welcoming, and safe environment for contributing to
 
 The Water Mission Area of the USGS supported the exploration of the development of the `hydroMaps` R-package. This package is not currently active.
 
-![USGS](http://usgs-r.github.io/images/usgs.png)
+[![USGS](http://usgs-r.github.io/images/usgs.png)](https://www.usgs.gov/)
 
 ### Sunset date 
 

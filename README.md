@@ -1,17 +1,18 @@
-# hydroMap
+hydroMap
+========
 
-This package is NOT CURRENTLY supported. 
+This package is NOT CURRENTLY supported.
 
-## Package Status
+Package Status
+--------------
 
-|Linux|Test Coverage| USGS Status |
-|----------|------------|------------|
-| [![travis](https://travis-ci.org/USGS-R/hydroMap.svg?branch=master)](https://travis-ci.org/USGS-R/hydroMap)|[![Coverage Status](https://coveralls.io/repos/github/USGS-R/hydroMap/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/hydroMap?branch=master)|[![status](https://img.shields.io/badge/USGS-Support-yellow.svg)](https://owi.usgs.gov/R/packages.html#support)|
+| Linux                                                                                                       | Test Coverage                                                                                                                                              | USGS Status                                                                                                     |
+|-------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| [![travis](https://travis-ci.org/USGS-R/hydroMap.svg?branch=master)](https://travis-ci.org/USGS-R/hydroMap) | [![Coverage Status](https://coveralls.io/repos/github/USGS-R/hydroMap/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/hydroMap?branch=master) | [![status](https://img.shields.io/badge/USGS-Support-yellow.svg)](https://owi.usgs.gov/R/packages.html#support) |
 
 ### Reporting bugs
 
-Please consider reporting bugs and asking questions on the Issues page:
-[https://github.com/USGS-R/hydroMap/issues](https://github.com/USGS-R/hydroMap/issues)
+Please consider reporting bugs and asking questions on the Issues page: <https://github.com/USGS-R/hydroMap/issues>
 
 Follow `@USGS_R` on Twitter for updates on USGS R packages:
 
@@ -25,11 +26,11 @@ We want to encourage a warm, welcoming, and safe environment for contributing to
 
 The Water Mission Area of the USGS supported the exploration of the development of the `hydroMaps` R-package. This package is not currently active.
 
-![USGS](http://usgs-r.github.io/images/usgs.png)
+[![USGS](http://usgs-r.github.io/images/usgs.png)](https://www.usgs.gov/)
 
-### Sunset date 
+### Sunset date
 
-There is no current funding for `hydroMaps`. Users should be aware that they use this package at their own risk. 
+There is no current funding for `hydroMaps`. Users should be aware that they use this package at their own risk.
 
 Installation
 ============
@@ -68,19 +69,19 @@ plotWSB(sites, mapRange = c(-81,-73,38,44),streamorder = 5)
 ```
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpIjjOek", layer: "epa_basins"
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\Rtmps3wTPA", layer: "epa_basins"
     ## with 2 features
     ## It has 4 fields
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpIjjOek", layer: "nhdflowline_network"
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\Rtmps3wTPA", layer: "nhdflowline_network"
     ## with 9638 features
-    ## It has 89 fields
+    ## It has 90 fields
 
     ## Warning in readOGR(filePath, layer = "nhdflowline_network"): Z-dimension
     ## discarded
 
-![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)<!-- -->
+![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
 ``` r
 # dev.off()
@@ -94,14 +95,14 @@ plotWSB(sites, mapRange = c(-81,-73,38,44),streamorder = 5)
 ```
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpIjjOek", layer: "epa_basins"
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\Rtmps3wTPA", layer: "epa_basins"
     ## with 2 features
     ## It has 4 fields
 
     ## OGR data source with driver: ESRI Shapefile 
-    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\2\RtmpIjjOek", layer: "nhdflowline_network"
+    ## Source: "C:\Users\ldecicco\AppData\Local\Temp\1\Rtmps3wTPA", layer: "nhdflowline_network"
     ## with 9638 features
-    ## It has 89 fields
+    ## It has 90 fields
 
     ## Warning in readOGR(filePath, layer = "nhdflowline_network"): Z-dimension
     ## discarded
@@ -119,7 +120,7 @@ axis(1,las=1)
 title(paste("Sites:",paste0(siteInfo$site_no,collapse = ",")))
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-4-1.png)<!-- -->
+![](README_files/figure-markdown_github/unnamed-chunk-4-1.png)
 
 Create Interactive Graphs using Leaflet:
 ----------------------------------------
