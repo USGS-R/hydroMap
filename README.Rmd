@@ -43,25 +43,16 @@ There is no current funding for `hydroMaps`. Users should be aware that they use
 
 # Installation
 
+To install the `hydroMap` package, first install the "remotes" package. Then run the following R code:
 
-## Windows
-
-```{r echo=TRUE, eval=FALSE}
-install.packages("hydroMap", 
-    repos = c("http://owi.usgs.gov/R", "http://cran.us.r-project.org"))
+```{r eval=FALSE}
+remotes::install_github("USGS-R/hydroMap")
 ```
-
-## Mac and Unix
 
 `hydroMaps` depends on the R packages `sp`,`rgeos`, and `rgdal` all of which require an external library gdal to be installed. See :
 
 https://www.mapbox.com/tilemill/docs/guides/gdal/
 
-
-```{r echo=TRUE, eval=FALSE}
-install.packages("hydroMap", 
-    repos = c("http://owi.usgs.gov/R", "http://cran.us.r-project.org"))
-```
 
 
 # Sample Workflow
