@@ -4,8 +4,13 @@
 \alias{plotWSB}
 \title{Basic plot of WSB based on huc}
 \usage{
-plotWSB(sites, col = "#A8A8A850", mapRange = NA, streamorder = 3,
-  filePath = NA)
+plotWSB(
+  sites,
+  col = "#A8A8A850",
+  mapRange = NA,
+  streamorder = 3,
+  filePath = NA
+)
 }
 \arguments{
 \item{sites}{character vector of site ids}
